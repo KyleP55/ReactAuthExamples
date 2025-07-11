@@ -33,9 +33,14 @@ const Register = () => {
         const { name, dob, email, password } = form;
 
         try {
-            const res = await axios.post(`${BACKEND_URL}/auth/register`, { name, dob, email, password });
+            const res = await axios.post(
+                `${BACKEND_URL}/auth/register`,
+                { name, dob, email, password },
+                { withCredentials: true }
+            );
 
             console.log("Register Success:", res.data);
+            nav("/account");
         } catch (err) {
             console.error("Register Error:", err.respone?.data || err.message);
         }

@@ -24,8 +24,12 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`${BACKEND_URL}/auth/login`, form);
-            console.log("Login Success:", res.data);
+            const res = await axios.post(
+                `${BACKEND_URL}/auth/login`,
+                form,
+                { withCredentials: true }
+            );
+            nav("/account");
         } catch (err) {
             console.error("Login Error:", err.response?.data || err.message);
         }
