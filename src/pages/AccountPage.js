@@ -49,7 +49,7 @@ const AccountPage = () => {
             <p>Email: <strong>{user.email}</strong></p>
             <p>Role: <strong>{user.role}</strong></p>
             <p style={{ color: 'green' }}>You're logged in with full access.</p>
-            <button type="button" className="danger" onClick={handleLogout}>Back</button>
+            <button type="button" className="danger" onClick={handleLogout}>Log Out</button>
         </div>
     );
 };

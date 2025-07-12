@@ -19,7 +19,7 @@ const Login = () => {
         });
     };
 
-    // On Log In
+    // On Native Log In
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -66,7 +66,9 @@ const Login = () => {
                 <p className="or-divider">or sign in with</p>
 
                 <div className="social-buttons">
-                    <button className="google">Google</button>
+                    <a href="http://localhost:5000/auth/google">
+                        <button className="google">Google</button>
+                    </a>
                     <button className="facebook">Facebook</button>
                     <button className="github">GitHub</button>
                 </div>
