@@ -2,6 +2,11 @@ body {
     margin: 0px;
 }
 
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
 .auth-container {
   display: flex;
   justify-content: center;

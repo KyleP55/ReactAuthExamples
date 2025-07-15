@@ -6,6 +6,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000"
 
 const Register = () => {
     const nav = useNavigate();
+    const [error, setError] = useState(null);
     const [form, setForm] = useState({
         name: "",
         dob: "",
@@ -25,9 +26,10 @@ const Register = () => {
     // Create Account
     const handleCreate = async (e) => {
         e.preventDefault();
+        if (!form.name || !form.email || !form.dob || !form.password || !form.confirmPassword) return;
 
         if (form.password !== form.confirmPassword) {
-            return alert("Passwords do not match.");
+            return setError('Passwords do not match');
         }
 
         const { name, dob, email, password } = form;
@@ -42,7 +44,8 @@ const Register = () => {
             console.log("Register Success:", res.data);
             nav("/account");
         } catch (err) {
-            console.error("Register Error:", err.respone?.data || err.message);
+            console.error("Register Error:", err.response?.data || err.message);
+            setError(err.response?.data.message);
         }
     }
 
@@ -91,6 +94,7 @@ const Register = () => {
                         <button type="submit" className="primary">Create</button>
                         <button type="button" className="danger" onClick={() => nav("/")}>Back</button>
                     </div>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                 </form>
             </div>
         </div>

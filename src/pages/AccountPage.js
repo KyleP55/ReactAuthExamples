@@ -48,6 +48,8 @@ const AccountPage = () => {
             <p>Welcome, <strong>{user.name || 'User'}</strong>!</p>
             <p>Email: <strong>{user.email}</strong></p>
             <p>Role: <strong>{user.role}</strong></p>
+            <p>Login methods: {user.provider}</p>
+            {!user.provider.includes('local') && <button onClick={() => nav('/addPassword')}>Add Password</button>}
             <p style={{ color: 'green' }}>You're logged in with full access.</p>
             <button type="button" className="danger" onClick={handleLogout}>Log Out</button>
         </div>
