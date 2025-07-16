@@ -6,9 +6,9 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000"
 
 const AccountPage = () => {
     const nav = useNavigate();
-    const [user, setUser] = useState(null); // user data
-    const [loading, setLoading] = useState(true); // loading state
-    const [error, setError] = useState(null); // error state
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -39,6 +39,20 @@ const AccountPage = () => {
         }
     }
 
+    const handleDelete = async () => {
+        if (!window.confirm('Delete account?')) return;
+
+        try {
+            const res = await axios.delete(`${BACKEND_URL}/auth`, { withCredentials: true });
+            if (res) {
+                alert('Account Deleted');
+                nav('/');
+            }
+        } catch (err) {
+            console.error('Delete failed:', err.message);
+        }
+    };
+
     if (loading) return <p>Loading account info...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
@@ -48,10 +62,13 @@ const AccountPage = () => {
             <p>Welcome, <strong>{user.name || 'User'}</strong>!</p>
             <p>Email: <strong>{user.email}</strong></p>
             <p>Role: <strong>{user.role}</strong></p>
-            <p>Login methods: {user.provider}</p>
+            <p>Login methods: {user.provider.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ')}</p>
             {!user.provider.includes('local') && <button onClick={() => nav('/addPassword')}>Add Password</button>}
             <p style={{ color: 'green' }}>You're logged in with full access.</p>
-            <button type="button" className="danger" onClick={handleLogout}>Log Out</button>
+            <button type="button" className="grey" onClick={handleLogout}>Log Out</button>
+            <br />
+            <br />
+            <button type="button" className="danger" onClick={handleDelete}>Delete Account</button>
         </div>
     );
 };
