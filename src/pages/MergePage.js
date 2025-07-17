@@ -1,5 +1,5 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
@@ -12,8 +12,26 @@ function MergePage() {
 
     const email = searchParams.get('email');
     const [password, setPassword] = useState('');
+    const [hasLocal, setHaslocal] = useState(false);
     const provider = searchParams.get('provider');
     const providerId = searchParams.get('providerId');
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await axios.get(`${BACKEND_URL}/auth/providers/${encodeURIComponent(email)}`, {
+                    withCredentials: false,
+                });
+                setHaslocal(res.data.hasLocal);
+            } catch (err) {
+                setError('Failed to fetch user data. Please log in again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const handleMerge = async () => {
         if (provider.includes('local') && password.length === 0) return setError('Password required for merge');
@@ -51,7 +69,7 @@ function MergePage() {
             <p>
                 Would you like to link your <strong>{provider}</strong> account to your existing account?
             </p>
-            {provider.includes('local') &&
+            {hasLocal &&
                 <input name="password"
                     type="password"
                     placeholder="Password"

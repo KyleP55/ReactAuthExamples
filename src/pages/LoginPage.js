@@ -72,7 +72,7 @@ const Login = () => {
                     <a href="http://localhost:5000/auth/google">
                         <button className="facebook">Facebook</button>
                     </a>
-                    <a href="http://localhost:5000/auth/google">
+                    <a href="http://localhost:5000/auth/github">
                         <button className="github">GitHub</button>
                     </a>
                 </div>
