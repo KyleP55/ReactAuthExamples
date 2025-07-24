@@ -7,8 +7,10 @@ import AuthRedirect from "./util/AuthRedirect.js";
 import LoginPage from "./pages/LoginPage.js";
 import CreateAccountPage from "./pages/CreateAccountPage.js";
 import AccountPage from "./pages/AccountPage.js";
+import AminAccountPage from "./pages/AdminAccountPage.js";
 import MergePage from "./pages/MergePage.js";
 import AddPasswordPage from "./pages/AddPasswordPage.js";
+import AdminAccountPage from "./pages/AdminAccountPage.js";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/createAccount" element={<CreateAccountPage />} />
         <Route path="/merge" element={<MergePage />} />
         <Route path="/account" element={<AuthRedirect><AccountPage /></AuthRedirect>} />
+        <Route path="/admin" element={<AuthRedirect><AdminAccountPage /></AuthRedirect>} />
         <Route path="/addPassword" element={<AuthRedirect><AddPasswordPage /></AuthRedirect>} />
       </Routes>
     </BrowserRouter>

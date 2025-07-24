@@ -16,6 +16,9 @@ const AccountPage = () => {
                 const res = await axios.get(`${BACKEND_URL}/auth/me`, {
                     withCredentials: true,
                 });
+
+                if (res.data.user.role === 'admin') nav('/admin');
+
                 setUser(res.data.user);
             } catch (err) {
                 setError('Failed to fetch user data. Please log in again.');
